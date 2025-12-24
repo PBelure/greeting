@@ -1,6 +1,8 @@
 name: Good Day Message
 'on':
-  - push
+  push: null
+env:
+  TIME: morning
 jobs:
   greet:
     runs-on: ubuntu-latest
