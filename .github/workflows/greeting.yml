@@ -1,0 +1,16 @@
+name: Good Day Message
+'on':
+  - push
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Morning Message
+        if: '${{ env.TIME == ''morning'' }}'
+        run: "echo \"Good Morning \U0001F31E\""
+      - name: Afternoon Message
+        if: '${{ env.TIME == ''afternoon'' }}'
+        run: echo "Good Afternoon ☀️"
+      - name: Else (Evening)
+        if: '${{ env.TIME != ''morning'' && env.TIME != ''afternoon'' }}'
+        run: "echo \"Good Evening \U0001F319\""
