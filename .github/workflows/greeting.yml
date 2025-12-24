@@ -1,18 +1,19 @@
-name: Good Day Message
+name: Good Day Message (System Time)
 'on':
   push: null
-env:
-  TIME: morning
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current hour
+        id: time
+        run: echo "HOUR=$(date +%H)" >> $GITHUB_ENV
       - name: Morning Message
-        if: '${{ env.TIME == ''morning'' }}'
+        if: '${{ env.HOUR >= 5 && env.HOUR < 12 }}'
         run: "echo \"Good Morning \U0001F31E\""
       - name: Afternoon Message
-        if: '${{ env.TIME == ''afternoon'' }}'
+        if: '${{ env.HOUR >= 12 && env.HOUR < 17 }}'
         run: echo "Good Afternoon ☀️"
-      - name: Else (Evening)
-        if: '${{ env.TIME != ''morning'' && env.TIME != ''afternoon'' }}'
+      - name: Evening Message
+        if: '${{ env.HOUR >= 17 }}'
         run: "echo \"Good Evening \U0001F319\""
